@@ -59,6 +59,7 @@ module DataCleaner
     
     private
     def replacement(args, object)
+      args = args.dup
       first = args.shift
       
       case first
