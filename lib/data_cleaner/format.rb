@@ -1,5 +1,5 @@
 module DataCleaner
-  class Format
+  class Format < if defined? BasicObject then BasicObject else Object end
     attr_accessor :klass, :attributes
     
     def initialize(klass)
