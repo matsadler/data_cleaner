@@ -1,5 +1,5 @@
 module DataCleaner
-  class Cleaner
+  module Cleaner
     MAPPING = {
       :name => Faker::Name,
       :first_name => Faker::Name,
@@ -42,23 +42,31 @@ module DataCleaner
       :words => Faker::Lorem,
     }
     
-    def clean(object)
-      clean!(object.dup)
+    extend self
+    
+    def __clean__(object=self)
+      __clean__!(object.dup)
+    end
+    unless defined? clean
+      alias clean __clean__
     end
     
-    def clean!(object)
-      format = Formats.formats[object.class.name]
+    def __clean__!(object=self)
+      format = DataCleaner::Formats.formats[object.class.name]
       
       format.attributes.each do |pair|
         attribute, arguments = pair
         
-        object.send(:"#{attribute}=", replacement(arguments, object))
+        object.send(:"#{attribute}=", __replacement__(arguments, object))
       end
       object
     end
+    unless defined? clean!
+      alias clean! __clean__!
+    end
     
     private
-    def replacement(args, object)
+    def __replacement__(args, object)
       args = args.dup
       first = args.shift
       
@@ -67,19 +75,19 @@ module DataCleaner
         first
       when Symbol
         args.map! {|arg| if arg.is_a?(Proc) then arg.call(object) end || arg}
-        data(first, *args)
+        __data__(first, *args)
       when Array
         first.map do |e|
           e = [e] unless e.is_a?(Array)
-          replacement(e, object)
+          __replacement__(e, object)
         end.join
       when Proc
         first.call(object)
       end
     end
     
-    def data(type, *args)
-      result = MAPPING[type]
+    def __data__(type, *args)
+      result = DataCleaner::Cleaner::MAPPING[type]
       
       klass, method = result
       method ||= type

@@ -36,9 +36,7 @@
   puts "is valid? #{secret.valid?}"
   puts
   
-  cleaner = DataCleaner::Cleaner.new
-  
-  clean = cleaner.clean!(secret)
+  clean = DataCleaner::Cleaner.clean!(secret)
   
   puts clean.inspect
   puts "is valid? #{clean.valid?}"
