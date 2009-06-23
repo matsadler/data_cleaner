@@ -26,7 +26,9 @@
     format "TopSecret" do |f|
       f.name [:first_name, " ", :last_name]
       f.email :email, &:name # passes the objects name to the email method
-      f.reference Proc.new {|secret| "#{secret.name[0..2].downcase}#{secret.date.strftime("%y")}"}
+      f.reference do |secret|
+        "#{secret.name[0..2].downcase}#{secret.date.strftime("%y")}"
+      end
       f.secret "test"
     end
   end
