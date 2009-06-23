@@ -1,7 +1,9 @@
-class Symbol
-  def to_proc
-    Proc.new do |obj|
-      obj.send(self)
+unless :Symbol.respond_to?(:to_proc)
+  class Symbol
+    def to_proc
+      Proc.new do |obj|
+        obj.send(self)
+      end
     end
   end
 end
