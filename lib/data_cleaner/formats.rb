@@ -1,9 +1,12 @@
 unless :Symbol.respond_to?(:to_proc)
   class Symbol
     def to_proc
-      Proc.new do |obj|
-        obj.send(self)
-      end
+      Proc.new(&method(:__apply__))
+    end
+    
+    private
+    def __apply__(obj, *args)
+      obj.send(self, *args)
     end
   end
 end
