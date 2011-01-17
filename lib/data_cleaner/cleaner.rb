@@ -54,9 +54,7 @@ module DataCleaner
     def __clean__!(object=self)
       format = DataCleaner::Formats.formats[object.class.name]
       
-      format.attributes.each do |pair|
-        attribute, arguments = pair
-        
+      format.attributes.each do |attribute, arguments|
         object.send(:"#{attribute}=", __replacement__(arguments, object))
       end
       object
@@ -87,12 +85,8 @@ module DataCleaner
     end
     
     def __data__(type, *args)
-      result = DataCleaner::Cleaner::MAPPING[type]
-      
-      klass, method = result
-      method ||= type
-      
-      klass.send(method, *args)
+      klass, method = DataCleaner::Cleaner::MAPPING[type]
+      klass.send(method || type, *args)
     end
     
   end

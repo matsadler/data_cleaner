@@ -7,11 +7,11 @@ module DataCleaner
       @attributes = []
     end
     
-    def method_missing(name, *args, &block)
+    def attribute(name, *args, &block)
       args.push(block) if block
       attributes.push([name, args])
     end
-    alias attribute method_missing
+    alias method_missing attribute
     
   end
 end

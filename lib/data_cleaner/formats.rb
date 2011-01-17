@@ -14,14 +14,12 @@ end
 module DataCleaner
   module Formats
     class << self; attr_accessor :formats end
-    
-    @formats = {}
+    self.formats = {}
     
     def self.format(klass)
       obj = Format.new(klass)
       yield obj
       formats[klass.to_s] = obj
-      obj
     end
     
   end
