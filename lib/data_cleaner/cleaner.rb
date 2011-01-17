@@ -1,5 +1,21 @@
 module DataCleaner
+  # DataCleaner::Cleaner is a module which can either be mixed-in, or used
+  # standalone to anonymise the data held within objects.
+  # 
+  # DataCleaner::Cleaner relies on the object formats specified with
+  # DataCleaner::Formats.
+  # 
   module Cleaner
+    # In the format 
+    #   :specifier => instance
+    # the method specifier will be called on instance
+    # 
+    # whereas with
+    #   :specifier => [instance, :method]
+    # the method method will be called on instance.
+    # 
+    # :specifier is used when describing the format of your object's attributes
+    # 
     MAPPING = {
       :name => Faker::Name,
       :first_name => Faker::Name,
@@ -44,6 +60,13 @@ module DataCleaner
     
     extend self
     
+    # :call-seq: Cleaner.clean(obj) -> new_obj
+    # obj.clean -> new_obj
+    # 
+    # Returns an anonymised copy of obj.
+    # 
+    # Relies on obj.dup.
+    # 
     def __clean__(object=self)
       __clean__!(object.dup)
     end
@@ -51,6 +74,11 @@ module DataCleaner
       alias clean __clean__
     end
     
+    # :call-seq: Cleaner.clean!(obj) -> obj
+    # obj.clean! -> obj
+    # 
+    # Anonymises obj.
+    # 
     def __clean__!(object=self)
       format = DataCleaner::Formats.formats[object.class.name]
       
