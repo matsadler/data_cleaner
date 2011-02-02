@@ -5,8 +5,8 @@ unless :Symbol.respond_to?(:to_proc)
     end
     
     private
-    def __apply__(obj, *args)
-      obj.send(self, *args)
+    def __apply__(*args)
+      args.shift.send(self, *args)
     end
   end
 end

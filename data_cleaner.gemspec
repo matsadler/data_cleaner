@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = "data_cleaner"
-  s.version = "0.0.1"
+  s.version = "0.0.2"
   s.summary = "A Ruby library to aid in removing sensitive data from objects"
   s.description = "A Ruby library to aid in removing sensitive data from objects"
   s.files = %W{lib}.map {|dir| Dir["#{dir}/**/*.rb"]}.flatten << "README.txt"
