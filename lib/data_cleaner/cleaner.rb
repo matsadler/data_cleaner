@@ -91,6 +91,15 @@ module DataCleaner
       alias clean! __clean__!
     end
     
+    # :call-seq  return_clean_attribute(class_name,:field) =>  clean_value
+    #
+    # return a cleaned value for a particular class's attribute
+    # 
+    def return_clean_attribute(object_name,attribute_symbol)
+      __replacement__(DataCleaner::Formats.return_format(object_name, attribute_symbol), object_name.constantize)
+    end
+    
+    
     private
     def __replacement__(args, object)
       args = args.dup

@@ -46,5 +46,13 @@ module DataCleaner
       formats[klass.to_s] = obj
     end
     
+    # :call-seq: return_format(class_name,:field_to_be_replaced) => :replacement_attribute
+    #
+    # Returns the correct formatting replacement for a given class's attribute
+    #
+    def return_format(object_name, attribute)
+      DataCleaner::Formats.formats[object_name].attributes.assoc(attribute.to_sym).flatten[1..-1]
+    end
+    
   end
 end
