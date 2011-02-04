@@ -62,7 +62,7 @@ module DataCleaner
     #
     # return a cleaned value for a particular class's attribute
     # 
-    def self.clean_value(klass, attribute, object=nil)
+    def self.clean_value(attribute, klass=self, object=nil)
       arguments = DataCleaner::Formats.attribute_format(klass, attribute)
       __replacement__(arguments, object)
     end
