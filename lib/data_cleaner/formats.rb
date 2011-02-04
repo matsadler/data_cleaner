@@ -53,7 +53,8 @@ module DataCleaner
     def self.return_format(klass, attribute)
       format = DataCleaner::Formats.formats[klass.to_s]
       if format
-        format.attributes.assoc(attribute.to_sym).flatten[1..-1]
+        attribute, attribute_format = format.attributes.assoc(attribute.to_sym)
+        attribute_format
       end
     end
     
