@@ -58,9 +58,11 @@ module DataCleaner
       :words => Faker::Lorem,
     }
     
-    # :call-seq  return_clean_attribute(class_name,:field) =>  clean_value
+    # :call-seq: Cleaner.clean_value(attr, klass, instance=nil) -> clean_value
     #
-    # return a cleaned value for a particular class's attribute
+    # Returns a clean value accoring to the format for the attribute and class
+    # specified. Be aware that if the format definition includes a block you
+    # many need to supply an instance of the class or you may get errors.
     # 
     def self.clean_value(attribute, klass=self, object=nil)
       arguments = DataCleaner::Formats.attribute_format(klass, attribute)
