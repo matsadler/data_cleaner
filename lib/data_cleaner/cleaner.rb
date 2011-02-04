@@ -58,6 +58,15 @@ module DataCleaner
       :words => Faker::Lorem,
     }
     
+    # :call-seq  return_clean_attribute(class_name,:field) =>  clean_value
+    #
+    # return a cleaned value for a particular class's attribute
+    # 
+    def self.return_clean_attribute(klass, attribute, object=nil)
+      arguments = DataCleaner::Formats.attribute_format(klass, attribute)
+      __replacement__(arguments, object)
+    end
+    
     extend self
     
     # :call-seq: Cleaner.clean(obj) -> new_obj
@@ -90,16 +99,6 @@ module DataCleaner
     unless defined? clean!
       alias clean! __clean__!
     end
-    
-    # :call-seq  return_clean_attribute(class_name,:field) =>  clean_value
-    #
-    # return a cleaned value for a particular class's attribute
-    # 
-    def return_clean_attribute(klass, attribute, object=nil)
-      arguments = DataCleaner::Formats.attribute_format(klass, attribute)
-      __replacement__(arguments, object)
-    end
-    
     
     private
     def __replacement__(args, object)
