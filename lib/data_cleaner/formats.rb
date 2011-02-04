@@ -50,7 +50,7 @@ module DataCleaner
     #
     # Returns the correct formatting replacement for a given class's attribute
     #
-    def self.return_format(klass, attribute)
+    def self.attribute_format(klass, attribute)
       format = formats[klass.to_s]
       if format
         attribute, attribute_format = format.attributes.assoc(attribute.to_sym)
