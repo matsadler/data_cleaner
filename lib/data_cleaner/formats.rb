@@ -50,7 +50,7 @@ module DataCleaner
     #
     # Returns the correct formatting replacement for a given class's attribute
     #
-    def return_format(object_name, attribute)
+    def self.return_format(object_name, attribute)
       DataCleaner::Formats.formats[object_name].attributes.assoc(attribute.to_sym).flatten[1..-1]
     end
     
