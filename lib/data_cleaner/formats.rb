@@ -36,7 +36,7 @@ module DataCleaner
     class << self; attr_accessor :formats end
     self.formats = {}
     
-    # :call-seq: format(klass) {|format| block } -> format
+    # :call-seq: Formats.format(klass) {|format| block } -> format
     # 
     # Yields a format object, which can be used to describe the format of klass.
     # 
@@ -46,10 +46,11 @@ module DataCleaner
       formats[klass.to_s] = obj
     end
     
-    # :call-seq: return_format(class_name,:field_to_be_replaced) => :replacement_attribute
-    #
-    # Returns the correct formatting replacement for a given class's attribute
-    #
+    # :call-seq: Formats.attribute_format(klass, attribute) => attribute_format
+    # 
+    # Returns the format for a particular attribute as described in a format
+    # block.
+    # 
     def self.attribute_format(klass, attribute)
       format = formats[klass.to_s]
       if format
