@@ -46,7 +46,7 @@ module DataCleaner
       formats[klass.to_s] = obj
     end
     
-    # :call-seq: Formats.attribute_format(klass, attribute) => attribute_format
+    # :call-seq: Formats.attribute_format(klass, attribute) -> attribute_format
     # 
     # Returns the format for a particular attribute as described in a format
     # block.
