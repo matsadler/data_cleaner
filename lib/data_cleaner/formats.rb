@@ -1,16 +1,3 @@
-unless :Symbol.respond_to?(:to_proc)
-  class Symbol
-    def to_proc
-      Proc.new(&method(:__apply__))
-    end
-    
-    private
-    def __apply__(*args)
-      args.shift.send(self, *args)
-    end
-  end
-end
-
 module DataCleaner
   # DataCleaner::Formats provides a DSL for describing, and method for looking
   # up the format of object's attributes, such that they can be replaced with
