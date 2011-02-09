@@ -6,6 +6,9 @@ DataCleaner wants to make sure your data still looks real, and importantly, pass
 
 Only data that need anonymising needs to be specified, foreign keys, non-customer-identifiable data should be left alone.
 
+* rdoc[http://sourcetagsandcodes.com/data_cleaner/doc/]
+* source[https://github.com/matsadler/data_cleaner]
+
 == Installation
 
 gem install data_cleaner
