@@ -95,6 +95,36 @@ class CleanerTest < Test::Unit::TestCase
     assert_equal("arthur AT milliways DOT com", clean.email)
   end
   
+  def test_helper
+    DataCleaner::Formats.helper :date do
+      Date.today
+    end
+    
+    DataCleaner::Formats.format "TopSecret" do |f|
+      f.date :date
+    end
+    
+    clean = DataCleaner::Cleaner.clean(@secret)
+    
+    assert_not_equal(Date.new(1978, 3, 8), clean.date)
+    assert_equal(Date.today, clean.date)
+  end
+  
+  def test_helper_with_arguments
+    DataCleaner::Formats.helper :date do |year, month, day|
+      Date.new(year, month, day)
+    end
+    
+    DataCleaner::Formats.format "TopSecret" do |f|
+      f.date :date, 2004, 4, 28
+    end
+    
+    clean = DataCleaner::Cleaner.clean(@secret)
+    
+    assert_not_equal(Date.new(1978, 3, 8), clean.date)
+    assert_equal(Date.new(2004, 4, 28), clean.date)
+  end
+  
   def test_clean
     DataCleaner::Formats.format "TopSecret" do |f|
       f.name [:first_name, " ", :last_name]
