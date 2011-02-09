@@ -8,10 +8,12 @@ class CleanerTest < Test::Unit::TestCase
   
   def setup
     @secret = TopSecret.new("Arthur Dent", "arthur@milliways.com", "H2G2", 42, Date.new(1978, 3, 8))
+    @original_helpers = DataCleaner::Formats.helpers.dup
   end
   
   def teardown
     DataCleaner::Formats.formats.clear
+    DataCleaner::Formats.helpers = @original_helpers
   end
   
   def test_simple_format
