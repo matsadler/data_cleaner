@@ -35,13 +35,17 @@ gem install data_cleaner
   end
   
   module DataCleaner::Formats
+    helper :embarrassing_secret do
+      "I like " + ["the colour pink", "programming PHP", "Judas Priest"].sample
+    end
+    
     format "TopSecret" do |f|
       f.name [:first_name, " ", :last_name]
       f.email :email, &:name # passes the objects name to the email method
-      f.reference do |secret|
-        "#{secret.name[0..2].downcase}#{secret.date.strftime("%y")}"
+      f.reference do |obj| # one off helper
+        "#{obj.name[0..2].downcase}#{obj.date.strftime("%y")}"
       end
-      f.secret "test"
+      f.secret :embarrassing_secret
     end
   end
   
@@ -60,7 +64,7 @@ prints:
   #<TopSecret:0x1015f7830 @email="mat@foo.com", @date=Mon Jan 17 16:53:19 +0000 2011, @name="Matthew Sadler", @secret="I like kittens", @reference="mat09">
 is valid? true
   
-  #<TopSecret:0x1015f7830 @email="javier.kuhlman@franeckikonopelski.co.uk", @date=Mon Jan 17 16:53:19 +0000 2011, @name="Javier Kuhlman", @secret="test", @reference="jav11">
+  #<TopSecret:0x1015f7830 @email="javier.kuhlman@franeckikonopelski.co.uk", @date=Mon Jan 17 16:53:19 +0000 2011, @name="Javier Kuhlman", @secret="the colour pink", @reference="jav11">
 is valid? true
 
 
