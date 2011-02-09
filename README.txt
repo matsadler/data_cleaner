@@ -62,11 +62,123 @@ gem install data_cleaner
 prints:
   
   #<TopSecret:0x1015f7830 @email="mat@foo.com", @date=Mon Jan 17 16:53:19 +0000 2011, @name="Matthew Sadler", @secret="I like kittens", @reference="mat09">
-is valid? true
+  is valid? true
   
   #<TopSecret:0x1015f7830 @email="javier.kuhlman@franeckikonopelski.co.uk", @date=Mon Jan 17 16:53:19 +0000 2011, @name="Javier Kuhlman", @secret="the colour pink", @reference="jav11">
-is valid? true
+  is valid? true
 
+== Formats
+There are various ways of specifying the format of an attribute.
+
+=== Basic Symbol
+
+  format "TopSecret" do |f|
+    f.name :first_name
+  end
+In this case the helper :first_name will be used to replace the name attribute
+
+=== Symbol With Arguments
+
+  format "TopSecret" do |f|
+    f.email :email, "Arthur"
+  end
+The helper :email will be used to replace the attribute, and be given the argument "Arthur"
+
+=== Symbol With Block
+
+  format "TopSecret" do |f|
+    f.name :first_name
+    f.email(:email) {|obj| obj.name}
+  end
+In this example the :email helper will be given the objects replacement name as an argument
+
+  format "TopSecret" do |f|
+    f.email(:email) {|obj| obj.name}
+    f.name :first_name
+  end
+Here the :email helper will get the objects original name as an argument
+
+=== String
+
+  format "TopSecret" do |f|
+    f.name "Arthur"
+  end
+In this case the name will simply be replaced with the string specified
+
+=== Array
+
+  format "TopSecret" do |f|
+    f.name [:first_name, " ", :last_name]
+  end
+With an array the individual elements behave like those above, then they are concatenated together, in this example the results from the :first_name and :last_name helpers will be joined with the string " " between them
+
+=== Nested Arrays
+
+   format "TopSecret" do |f|
+     f.emails [[:email, "Arthur"], ", ", [:email, "Ford"]]
+   end
+In this example the :email helper will be called twice, once with the argument "Arthur", then again with the argument "Ford", and these will be joined by the string ", "
+
+=== Block
+
+  format "TopSecret" do |f|
+    f.secret {|obj| rand(100)}
+  end
+When using a block the attribute will be replaced by the result of the block.
+
+== Built-in helpers
+The built-in helpers use the faker gem to generate data, see the faker documentation for more details
+
+:name
+:first_name
+:last_name
+:name_prefix
+:name_suffix
+
+:phone_number
+
+:city
+:city_prefix
+:city_suffix
+:secondary_address
+:street_address
+:street_name
+:street_suffix
+:uk_country
+:uk_county
+:uk_postcode
+:us_state
+:us_state_abbr
+:zip_code
+
+:domain_name
+:domain_suffix
+:domain_word
+:email
+:free_email
+:user_name
+
+:bs
+:catch_phrase
+:company_name
+:company_suffix
+
+:paragraph
+:paragraphs
+:sentence
+:sentences
+:words
+
+== Custom helpers
+Custom helpers can be defined like 
+
+  module DataCleaner::Formats
+    helper :embarrassing_secret do
+      "I like " + ["the colour pink", "programming PHP", "Judas Priest"].sample
+    end
+  end
+
+This can also be used to redefine the built-in helpers.
 
 == Licence
 
