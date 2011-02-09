@@ -6,7 +6,7 @@ module DataCleaner
   #   f = DataCleaner::Format.new("Person")
   #   f.name [:first_name, " ", :last_name]
   # 
-  # You most likely do not want to use this class directly, bu instead though
+  # You most likely do not want to use this class directly, but instead through
   # DataCleaner::Formats.
   # 
   class Format < if defined? BasicObject then BasicObject else Object end
