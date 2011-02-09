@@ -61,7 +61,7 @@ module DataCleaner
         first
       when Symbol
         args.map! {|arg| if arg.is_a?(Proc) then arg.call(object) end || arg}
-        __data__(first, *args)
+        DataCleaner::Formats.helpers[first].call(*args)
       when Array
         first.map do |e|
           e = [e] unless e.is_a?(Array)
@@ -70,10 +70,6 @@ module DataCleaner
       when Proc
         first.call(object)
       end
-    end
-    
-    def __data__(type, *args)
-      DataCleaner::Formats.helpers[type].call(*args)
     end
     
   end
