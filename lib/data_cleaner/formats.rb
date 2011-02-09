@@ -69,12 +69,12 @@ module DataCleaner
     # Set up default helpers
     # 
     # In the format
-    #   :name => reciever
-    # the method name will be called on reciever
+    #   :name => receiver
+    # the method name will be called on receiver
     # 
     # whereas with
-    #   :name => [reciever, :method]
-    # the method method will be called on reciever.
+    #   :name => [receiver, :method]
+    # the method method will be called on receiver.
     # 
     # :name is used when describing the format of your object's attributes
     # 
@@ -118,8 +118,8 @@ module DataCleaner
       :sentence => Faker::Lorem,
       :sentences => Faker::Lorem,
       :words => Faker::Lorem,
-    }.each do |name, (reciever, method)|
-      helper(name, &reciever.method(method || name))
+    }.each do |name, (receiver, method)|
+      helper(name, &receiver.method(method || name))
     end
     
   end
