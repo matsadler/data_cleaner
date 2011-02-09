@@ -1,4 +1,4 @@
-module DataCleaner
+module DataCleaner # :nodoc:
   # DataCleaner::Formats provides a DSL for describing, and method for looking
   # up the format of object's attributes, such that they can be replaced with
   # fake data, but still pass validation.

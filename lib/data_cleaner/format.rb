@@ -1,4 +1,4 @@
-module DataCleaner
+module DataCleaner # :nodoc:
   # DataCleaner::Format can be used to describe the format of an object's
   # attributes.
   # 

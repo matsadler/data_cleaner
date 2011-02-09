@@ -1,4 +1,4 @@
-module DataCleaner
+module DataCleaner # :nodoc:
   # DataCleaner::Cleaner is a module which can either be mixed-in, or used
   # standalone to anonymise the data held within objects.
   # 
